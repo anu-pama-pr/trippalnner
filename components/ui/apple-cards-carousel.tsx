@@ -13,8 +13,8 @@ import {
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "motion/react";
-import Image, { ImageProps } from "next/image";
 import { useOutsideClick } from "@/hooks/use-outside-click";
+import Image, { ImageProps } from "next/image";
 
 interface CarouselProps {
   items: JSX.Element[];
@@ -265,32 +265,19 @@ export const Card = ({
       </motion.button>
     </>
   );
-};
-
-export const BlurImage = ({
-  height,
-  width,
-  src,
-  className,
-  alt,
-  ...rest
-}: ImageProps) => {
+};export const BlurImage = ({ className, alt, ...rest }: ImageProps) => {
   const [isLoading, setLoading] = useState(true);
+
   return (
-    <img
+    <Image
+      {...rest}
+      alt={alt ?? "Background image"}
       className={cn(
-        "h-full w-full transition duration-300",
-        isLoading ? "blur-sm" : "blur-0",
+        "transition duration-300",
+        isLoading ? "blur-sm scale-105" : "blur-0 scale-100",
         className
       )}
-      onLoad={() => setLoading(false)}
-      src={src as string}
-      width={width}
-      height={height}
-      loading="lazy"
-      decoding="async"
-      alt={alt ? alt : "Background of a beautiful view"}
-      {...rest}
+      onLoadingComplete={() => setLoading(false)}
     />
   );
 };

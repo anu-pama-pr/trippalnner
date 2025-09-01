@@ -21,7 +21,7 @@ const menuOptions = [
 
 function Header() {
   return (
-    <div className="w-full flex items-center justify-between px-8 py-4">
+    <div className="w-full flex items-center justify-between px-8 py-4 sticky top-0 bg-white/50 backdrop-blur-md z-50">
       {/* Logo */}
       <div className="flex items-center gap-2">
         <Image
