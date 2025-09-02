@@ -1,9 +1,8 @@
-import HeroVideoDialog from "@/components/magicui/hero-video-dialog";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { ArrowDown, Globe2, Landmark, Plane, Send } from "lucide-react";
-import { NestedMiddlewareError } from "next/dist/build/utils";
-import React from "react";
+import HeroVideoDialog from '@/components/magicui/hero-video-dialog';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Globe2, Plane, Landmark, Send, ArrowDown } from 'lucide-react';
+
 const suggestions = [
   {
     title: "Create a new trip ",
@@ -23,7 +22,7 @@ const suggestions = [
   },
 ];
 
-const Hero = () => {
+const HeroSection = () => {
   return (
     <div className=" mt-24 w-full flex  justify-center ">
       {/*  content */}
@@ -82,5 +81,5 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default HeroSection;
 

@@ -1,14 +1,14 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Header from "./_components/Header";
-import Hero from "./_components/Hero";
 import { PopularCityList } from "./_components/PopularCityList";
+import HeroSection from "./_components/Hero.";
 
 export default function Home() {
   return (
     <div>
       {/* <Header /> */}
-      <Hero />
+      <HeroSection /> {/* Hero Section (name Hro changed to HeroSection) */}
       <PopularCityList />
     </div>
   );
