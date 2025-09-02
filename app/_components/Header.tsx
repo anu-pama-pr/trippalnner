@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { SignInButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import path from "path";
@@ -30,7 +31,7 @@ function Header() {
           width={30}
           height={30}
         ></Image>
-        <h2 className="font-bold text-2xl capitalize">AI trip planner</h2>
+        <h2 className="font-bold text-2xl capitalize">Trav-AI</h2>
       </div>
       {/*  menu options  */}
       <div className="flex items-center gap-6">
@@ -43,9 +44,10 @@ function Header() {
       </div>
       {/* get start */}
 
-      <Button>
-        Get Started
-      </Button>
+      <SignInButton mode="modal">
+
+      <Button>Get Started</Button>
+      </SignInButton>
     </div>
   );
 }

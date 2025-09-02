@@ -2,6 +2,7 @@ import HeroVideoDialog from "@/components/magicui/hero-video-dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowDown, Globe2, Landmark, Plane, Send } from "lucide-react";
+import { NestedMiddlewareError } from "next/dist/build/utils";
 import React from "react";
 const suggestions = [
   {
@@ -82,3 +83,4 @@ const Hero = () => {
 };
 
 export default Hero;
+
