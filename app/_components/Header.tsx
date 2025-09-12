@@ -1,8 +1,9 @@
+" use client"
 import { Button } from "@/components/ui/button";
-import { SignInButton } from "@clerk/nextjs";
+import { SignInButton, useUser } from "@clerk/nextjs";
+import { link } from "fs";
 import Image from "next/image";
 import Link from "next/link";
-import path from "path";
 import React from "react";
 
 const menuOptions = [
@@ -21,6 +22,10 @@ const menuOptions = [
 ];
 
 function Header() {
+
+const { user } = useUser();
+
+
   return (
     <div className="w-full flex items-center justify-between px-8 py-4 sticky top-0 bg-white/50 backdrop-blur-md z-50">
       {/* Logo */}
@@ -44,11 +49,18 @@ function Header() {
       </div>
       {/* get start */}
 
+     
+    {!user ? 
       <SignInButton mode="modal">
-
-      <Button>Get Started</Button>
+        <Button>Get Started</Button>
       </SignInButton>
+     : 
+      <Link href={"/create-new-trip"}>
+        <Button>Create New Trip</Button>
+      </Link>
+    } 
     </div>
-  );
+  )
 }
-export default Header;
+  
+export default Header
