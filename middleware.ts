@@ -3,8 +3,8 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 // ✅ Add /api/arcjet to public routes
 const isPublicRoute = createRouteMatcher([
   '/sign-in(.*)',
-  '/sign-up(.*)',
   '/',
+  '/sign-up(.*)',
   '/api/arcjet(.*)',   // <-- added this
 ])
 

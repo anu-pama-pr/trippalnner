@@ -1,10 +1,10 @@
-"use client"
-import HeroVideoDialog from '@/components/magicui/hero-video-dialog';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { useUser } from '@clerk/nextjs';
-import { Globe2, Plane, Landmark, Send, ArrowDown } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+"use client";
+import HeroVideoDialog from "@/components/magicui/hero-video-dialog";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { useUser } from "@clerk/nextjs";
+import { Globe2, Plane, Landmark, Send, ArrowDown } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const suggestions = [
   {
@@ -25,24 +25,17 @@ const suggestions = [
   },
 ];
 
-
-
-
 const HeroSection = () => {
-
-  const { user }=useUser();
-  const router=useRouter();                  
-  const onSent=()=>{
-    if(!user)
-    {
+  const { user } = useUser();
+  const router = useRouter();
+  const onSent = () => {
+    if (!user) {
       router.push("/sign-in");
       return;
     }
-    //navigate to trip planner  web page 
-    router.push("/create-new-trip");
-
-
-  }
+    //navigate to trip planner  web page
+     router.push("/create-new-trip");
+  };
 
   return (
     <div className=" mt-24 w-full flex  justify-center ">
@@ -63,12 +56,16 @@ const HeroSection = () => {
               placeholder=" Create a trip from New York"
               className="w-full h-28 bg-transparent border-none focus-visible:ring-0 shadow-none resize-none"
             ></Textarea>
-            <Button size={"icon"} className=" absolute bottom-6 right-6" onClick={ ()=>onSent()}>
+            <Button
+              size={"icon"}
+              className=" absolute bottom-6 right-6"
+              onClick={onSent}
+            >
               <Send className="h-4 w-4" />
             </Button>
           </div>
         </div>
-        {/*  session box */} 
+        {/*  session box */}
 
         <div className="flex gap-5">
           {suggestions.map((suggestion, index) => (
@@ -84,18 +81,18 @@ const HeroSection = () => {
 
         {/*  video section */}
         <div className="flex item-center flex-col">
-            <h2 className="capitalize my-7 mt-14 flex gap-3 text-center ">
-              Not sure where to start? <strong>see how it works</strong>
-              <ArrowDown />
-            </h2>
-            <HeroVideoDialog
-              className="block dark:hidden scale-100"
-              animationStyle="from-center"
-              videoSrc="https://cdn.pixabay.com/video/2025/06/01/282995_tiny.mp4"
-              thumbnailSrc="./thumb.png"
+          <h2 className="capitalize my-7 mt-14 flex gap-3 text-center ">
+            Not sure where to start? <strong>see how it works</strong>
+            <ArrowDown />
+          </h2>
+          <HeroVideoDialog
+            className="block dark:hidden scale-100"
+            animationStyle="from-center"
+            videoSrc="https://cdn.pixabay.com/video/2025/06/01/282995_tiny.mp4"
+            thumbnailSrc="./thumb.png"
             //   thumbnailSrc="https://mma.prnewswire.com/media/2401528/1_MindtripProduct.jpg"
-              thumbnailAlt="Dummy Video Thumbnail"
-            />
+            thumbnailAlt="Dummy Video Thumbnail"
+          />
         </div>
       </div>
     </div>
@@ -103,4 +100,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
