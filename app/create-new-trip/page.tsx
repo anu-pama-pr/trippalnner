@@ -1,22 +1,15 @@
-"use client";
+import React from 'react'
+import ChatBox from './_components/ChatBox'
 
-import { SignIn, useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
-import CLoader from "../_components/CLoader";
-import ChatBox from "./_components/ChatBox";
-
-export default function SignInPage() {
-  const { isLoaded, isSignedIn } = useUser();
-  const router = useRouter();
-
-
-  if (!isLoaded || !isSignedIn) {
-    return <CLoader/>;
-  }
-
+function createNewTrip() {
   return (
-    <div className="flex items-center justify-center h-screen w-full">
-      <ChatBox/>
-    </div>
-  );
+    <div className='grid grid-cols-1 md:grid-cols-2 gap-5 p-10 '>
+
+     <div>
+     < ChatBox/>
+      </div> 
+      <div> Map and Trip Plan to Display </div>
+  </div>
+  )
 }
+export default createNewTrip

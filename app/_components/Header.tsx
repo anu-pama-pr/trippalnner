@@ -16,11 +16,10 @@ const menuOptions = [
 function Header() {
   const { isSignedIn, isLoaded } = useUser();
 
-  if (!isLoaded) return <CLoader/>; // Wait for Clerk to load
+  if (!isLoaded) return null; // Wait for Clerk to load
 
   return (
     <div className="w-full flex items-center justify-between px-8 py-4 sticky top-0 bg-white/50 backdrop-blur-md z-50">
-      
       {/* Logo */}
       <Link href="/">
         <div className="flex items-center gap-2 cursor-pointer">
