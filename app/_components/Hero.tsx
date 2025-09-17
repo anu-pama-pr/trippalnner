@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useUser } from "@clerk/nextjs";
 import { Globe2, Plane, Landmark, Send, ArrowDown } from "lucide-react";
 import { useRouter } from "next/navigation";
+import CLoader from "./CLoader";
 
 const suggestions = [
   {
@@ -26,7 +27,8 @@ const suggestions = [
 ];
 
 const HeroSection = () => {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
+  if (!isLoaded) return <CLoader />; // Wait for Clerk to load
   const router = useRouter();
   const onSent = () => {
     if (!user) {
@@ -34,9 +36,9 @@ const HeroSection = () => {
       return;
     }
     //navigate to trip planner  web page
-     router.push("/create-new-trip");
+    router.push("/create-new-trip");
   };
-
+  
   return (
     <div className=" mt-24 w-full flex  justify-center ">
       {/*  content */}
@@ -52,15 +54,10 @@ const HeroSection = () => {
         {/*  input */}
         <div>
           <div className=" border rounded-2xl p-4  relative">
-            <Textarea
-              placeholder=" Create a trip from New York"
+            <Textarea placeholder=" Create a trip from New York"
               className="w-full h-28 bg-transparent border-none focus-visible:ring-0 shadow-none resize-none"
             ></Textarea>
-            <Button
-              size={"icon"}
-              className=" absolute bottom-6 right-6"
-              onClick={onSent}
-            >
+            <Button size={"icon"}  className=" absolute bottom-6 right-6"  onClick={onSent} >
               <Send className="h-4 w-4" />
             </Button>
           </div>

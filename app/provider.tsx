@@ -6,6 +6,7 @@ import { api } from "@/convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
 import { User } from "lucide-react";
 import { UserDetailContext } from "@/context/UserDetailContext";
+import CLoader from "./_components/CLoader";
 
 function Provider({
   children,
@@ -14,7 +15,7 @@ function Provider({
 }>) {
   const CreateUser = useMutation(api.user.CreateNewUser);
   const [userDetails, setUserDetails] = useState<any>();
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
 
   useEffect(() => {
     user && CreateNewUser();
