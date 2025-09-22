@@ -7,7 +7,7 @@ import { Globe2, Plane, Landmark, Send, ArrowDown } from "lucide-react";
 import { useRouter } from "next/navigation";
 import CLoader from "./CLoader";
 
-const suggestions = [
+export const suggestions = [
   {
     title: "Create a new trip ",
     icon: <Globe2 className="text-blue-400 h-5 w-5" />,
@@ -23,12 +23,12 @@ const suggestions = [
   {
     title: "Create a new trip ",
     icon: <Globe2 className="text-yellow-600 h-5 w-5" />,
-  },
+  }, 
 ];
 
 const HeroSection = () => {
   const { user, isLoaded } = useUser();
-  if (!isLoaded) return <CLoader />; // Wait for Clerk to load
+//  if (!isLoaded) return <CLoader />; // Wait for Clerk to load
   const router = useRouter();
   const onSent = () => {
     if (!user) {
@@ -62,19 +62,9 @@ const HeroSection = () => {
             </Button>
           </div>
         </div>
-        {/*  session box */}
+        {/*  sugession list*/}
 
-        <div className="flex gap-5">
-          {suggestions.map((suggestion, index) => (
-            <div
-              className="flex items-center gap-3 border rounded-full p-2 cursor-pointer hover:bg-primary hover:text-white transition"
-              key={index}
-            >
-              {suggestion.icon}
-              <h2 className="text-sm">{suggestion.title}</h2>
-            </div>
-          ))}
-        </div>
+        
 
         {/*  video section */}
         <div className="flex item-center flex-col">
