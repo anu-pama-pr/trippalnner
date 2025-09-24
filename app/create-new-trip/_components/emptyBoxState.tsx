@@ -1,7 +1,7 @@
 import { suggestions } from "@/app/_components/Hero";
 import React from "react";
 
-function emptyBoxState({onSelectOpton}:any ){
+function emptyBoxState({onSelectOption}:any ){
   return (
     <div className="mt-7">
       <h2 className="font-bold text-4xl text-center ">
@@ -18,7 +18,7 @@ function emptyBoxState({onSelectOpton}:any ){
         {suggestions.map((suggestion, index) => (
           <div
             key={index}
-            onClick={() => onSelectOpton(suggestion.title)}
+            onClick={() => onSelectOption(suggestion.title)}
             className="flex items-center gap-3 border
                rounded-xl p-3 cursor-pointer hover:border-primary hover:text-primary"
           >
