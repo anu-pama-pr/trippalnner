@@ -21,7 +21,7 @@ export const suggestions = [
     icon: <Landmark className="text-orange-500 h-5 w-5" />,
   },
   {
-    title: "Create a new trip ",
+    title: "Adventure Destination ",
     icon: <Globe2 className="text-yellow-600 h-5 w-5" />,
   }, 
 ];

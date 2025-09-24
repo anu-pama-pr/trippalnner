@@ -29,6 +29,7 @@ function Provider({
         imageUrl: user?.imageUrl,
         name: user?.fullName ?? "",
       });
+      // console.log(result); // check what you actually get
       setUserDetails(result);
     }
   };
