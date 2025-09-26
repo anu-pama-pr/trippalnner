@@ -17,7 +17,7 @@ function Header() {
   const {user } = useUser();
   const path = usePathname(); // ✅ Hook always called before conditional returns
 
-  console.log(path); 
+  // console.log(path); 
 
 
   return (

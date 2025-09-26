@@ -12,31 +12,30 @@ import BudgetUi from "./BudgetUi";
 import FinalUi from "./FinalUi";
 import SelectDays from "./SelectDays";
 import { useMutation } from "convex/react";
-import { useTripDetails, useUserDetails } from "@/app/provider";
+import { useTripDetails, useUserDetail } from "@/app/provider";
 import { api } from "@/convex/_generated/api"; // 👈 add this
 import { v4 as uuidv4 } from "uuid";
-
 
 type Message = {
   role: string;
   content: string;
   ui?: string;
 };
- export type Hotel={
+
+export type Hotel = {
   hotel_name: string;
   hotel_address: string;
-  price_per_night:string;
-  hotel_image_url:string;
-  geo_coordinates:{
-    latitude:number;
-    longitude:number;
+  price_per_night: string;
+  hotel_image_url: string;
+  geo_coordinates: {
+    latitude: number;
+    longitude: number;
   };
-  rating:number;
-  description:string;
-}
+  rating: number;
+  description: string;
+};
 
-
- export type Activity={
+export type Activity = {
   place_name: string;
   place_details: string;
   place_image_url: string;
@@ -50,25 +49,22 @@ type Message = {
   best_time_to_visit: string;
 };
 
-
-type Itinerary={
+type Itinerary = {
   day: number;
   day_plan: string;
   places_to_visit: Activity[];
   activities: Activity[];
+};
 
-}
 export type TripInfo = {
   budget: string;
-  destination: string;   
+  destination: string;
   duration: string;
   group_size: string;
-  origin: string; 
-  hotels:Hotel[];
+  origin: string;
+  hotels: Hotel[];
   itinerary: Itinerary[];
-}; 
-
-
+};
 
 function ChatBox() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -77,9 +73,20 @@ function ChatBox() {
   const [isFinal, setIsFinal] = useState(false);
   const [tripDetail, setTripDetail] = useState<TripInfo>();
   const saveTripDetail = useMutation(api.tripDetail.CreateTripDetail);
-  const { userDetails, setUserDetails } = useUserDetails();
-  //@ts-ignore
-   const { tripDetailInfo, setTripDetailInfo } = useTripDetails();
+  const { userDetail, setUserDetail, isLoading } = useUserDetail();
+  // @ts-ignore
+  const { tripDetailInfo, setTripDetailInfo } = useTripDetails();
+
+  if (isLoading) {
+    // optional: you can add a loading skeleton
+    return (
+      <>
+        <div className="w-screen h-screen item-center justify-center">
+          <Loader className="size-5" />
+        </div>
+      </>
+    );
+  }
 
   const onSend = async () => {
     if (!userInput?.trim()) return;
@@ -97,30 +104,19 @@ function ChatBox() {
       messages: [...messages, newMsg],
       isFinal: isFinal,
     });
-    // console.log("trip data ",result?.data)
-    // if (result.data.error) {
-    //   console.error("API Error:", result.data);
-    //   // Handle error appropriately
-    //   return;
-    // }
 
-console.log("API raw result:", result.data);
-if (result.data.error) {
-  console.error("API returned error:", result.data.error, result.data.details);
-} else {
-  console.log("Trip Plan:", result.data.trip_plan);
-}
-
-
-// console.log("API raw result:", result.data);
-
-// // Check if error exists
-// if (result.data && result.data.error) {
-//   console.error("API returned error:", result.data.error, result.data.details || "No additional details");
-// } else {
-//   console.log("Trip Plan:", result.data?.trip_plan || "No trip plan data available");
-// }
-
+    console.log("API raw result:", result?.data);
+    if (result.data.error) {
+      console.error(
+        "API returned error:",
+        result?.data?.error,
+        result?.data?.details,
+        result
+      );
+    } else {
+      console.log("Trip Plan:", result?.data);
+      console.log(result)
+    }
 
     !isFinal &&
       setMessages((prev: Message[]) => [
@@ -133,6 +129,7 @@ if (result.data.error) {
       ]);
 
     console.log(result);
+
     if (isFinal) {
       setTripDetail(result?.data?.trip_plan);
       setTripDetailInfo(result?.data?.trip_plan);
@@ -140,7 +137,7 @@ if (result.data.error) {
       await saveTripDetail({
         tripDetail: result?.data?.trip_plan ?? {}, // always send something
         tripId: tripId, // use the generated UUID
-        uid: userDetails?._id,
+        uid: userDetail?._id,
       });
     }
 
@@ -149,7 +146,6 @@ if (result.data.error) {
 
   const RenderGenerativeUi = (ui: string) => {
     if (ui == "budget") {
-      //Budget UI
       return (
         <BudgetUi
           onSelectOption={(v: string) => {
@@ -159,7 +155,6 @@ if (result.data.error) {
         />
       );
     } else if (ui == "groupSize") {
-      // group size UI
       return (
         <GroupSizeUi
           onSelectOption={(v: string) => {
@@ -182,12 +177,12 @@ if (result.data.error) {
     }
     return null;
   };
+
   useEffect(() => {
     const lastMsg = messages[messages.length - 1];
     if (lastMsg?.ui == "final") {
       setIsFinal(true);
       setUserInput("Ok Great!");
-      //onSend();
     }
   }, [messages]);
 
@@ -208,13 +203,13 @@ if (result.data.error) {
         />
       )}
 
-      {/* display msgs */}
       <section className="flex-1 overflow-y-auto p-4">
         {messages.map((msg: Message, index) =>
           msg.role == "user" ? (
             <div className=" flex  justify-end mt-2" key={index}>
               <div className=" max-w-lg bg-primary text-white py-2  px-3 rounded-lg">
                 {msg.content}
+                {RenderGenerativeUi(msg.ui ?? "")}
               </div>
             </div>
           ) : (
@@ -236,8 +231,6 @@ if (result.data.error) {
         )}
       </section>
 
-      {/* user inputs */}
-
       <section>
         <div className="border rounded-2xl p-4 relative">
           <Textarea
@@ -247,7 +240,7 @@ if (result.data.error) {
             value={userInput}
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault(); // prevent new line
+                e.preventDefault();
                 onSend();
               }
             }}

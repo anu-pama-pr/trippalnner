@@ -3,10 +3,10 @@ import { v } from "convex/values";
 
 export const CreateTripDetail = mutation({
   args: {
-    tripId: v.string(),
-    uid: v.id("userTable"),
-    tripDetail: v.any(),
-  },
+  tripId: v.string(),
+  uid: v.id("userTable"),   // REQUIRED
+  tripDetail: v.any(),
+},
 
   handler: async (ctx, args) => {
     const result = await ctx.db.insert("TripDetailTable", {
