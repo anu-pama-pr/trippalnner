@@ -33,6 +33,9 @@ export type Hotel = {
   };
   rating: number;
   description: string;
+  walletAmount?: number;      // optional if you have wallet info
+  mapUrl?: string;            // URL to Google Maps
+  bookingUrl?: string;        // URL to hotel booking
 };
 
 export type Activity = {

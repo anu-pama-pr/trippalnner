@@ -52,40 +52,109 @@ const DummyContent = () => {
 
 const data = [
   {
-    category: "Paris, France",
-    title: "Explore the City of Lights – Eiffel Tower, Louvre & more",
-    src: "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    content: <DummyContent />,
+    category: "India",
+    title: "Cultural Wonders – Taj Mahal, Palaces & Backwaters",
+    src: "https://images.unsplash.com/photo-1524230507669-5ff97982bb5e?q=80&w=664&auto=format&fit=crop",
+    content: (
+      <div>
+        <p className="text-lg md:text-xl text-neutral-700 dark:text-neutral-300">
+          Explore the magnificent Taj Mahal in Agra, the royal palaces of Jaipur, the serene backwaters of Kerala, and exciting wildlife safaris across India. Experience the rich culture, vibrant festivals, and breathtaking landscapes that make India a diverse and unforgettable destination.
+        </p>
+        <img
+          src="https://images.unsplash.com/photo-1710822334460-32dbfd4d5d5f?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="India"
+          className="w-full rounded-xl mt-4"
+        />
+      </div>
+    ),
   },
+
+  {
+    category: "Paris, France",
+    title: "City of Lights – Eiffel Tower, Louvre & Montmartre",
+    src: "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?q=80&w=687&auto=format&fit=crop",
+    content: (
+      <div>
+        <p className="text-lg md:text-xl text-neutral-700 dark:text-neutral-300">
+          Discover the romantic charm of Paris with the iconic Eiffel Tower, the world-renowned Louvre Museum, the artsy Montmartre district, and picturesque walks along the Seine River. Savor French cuisine and enjoy the timeless elegance of the City of Lights.
+        </p>
+        <img
+          src="https://plus.unsplash.com/premium_photo-1747073970318-ae7c4aa1592c?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Paris"
+          className="w-full rounded-xl mt-4"
+        />
+      </div>
+    ),
+  },
+
   {
     category: "New York, USA",
-    title: "Experience NYC – Times Square, Central Park, Broadway",
-    src:" https://images.unsplash.com/photo-1476837754190-8036496cea40?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    content: <DummyContent />,
+    title: "Statue of Liberty –  Central Park & Broadway",
+    src: "https://images.unsplash.com/photo-1476837754190-8036496cea40?q=80&w=687&auto=format&fit=crop",
+    content: (
+      <div>
+        <p className="text-lg md:text-xl text-neutral-700 dark:text-neutral-300">
+          Experience the vibrant energy of New York City with dazzling Times Square, relaxing strolls in Central Park, world-class Broadway shows, and iconic landmarks like the Statue of Liberty. Enjoy diverse cuisine, bustling streets, and an unforgettable urban adventure.
+        </p>
+        <img
+          src="https://plus.unsplash.com/premium_photo-1694475315972-75b665d25368?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="New York"
+          className="w-full rounded-xl mt-4"
+        />
+      </div>
+    ),
   },
+
   {
     category: "Tokyo, Japan",
-    title: "Discover Tokyo – Shibuya, Cherry Blossoms, Temples",
-    src: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    content: <DummyContent />,
+    title:  "Tokyo & Mount Fuji – City Lights to Majestic Peaks",
+    src: "https://images.unsplash.com/photo-1717226263667-7ce6f7f35d9d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    content: (
+      <div>
+        <p className="text-lg md:text-xl text-neutral-700 dark:text-neutral-300">
+          Discover Tokyo’s perfect balance of modern innovation and traditional culture. Visit the bustling Shibuya Crossing, historic Senso-ji Temple, beautiful cherry blossom parks, and the iconic Tokyo Tower. Enjoy authentic Japanese cuisine and immerse yourself in vibrant city life.        </p>
+        <img
+          src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=687&auto=format&fit=crop"
+          alt="Tokyo"
+          className="w-full rounded-xl mt-4"
+        />
+      </div>
+    ),
   },
+
   {
     category: "Rome, Italy",
-    title: "Walk through History – Colosseum, Vatican, Roman Forum",
-    src: "https://images.unsplash.com/photo-1569759276108-31b8e7e43e7b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    content: <DummyContent />,
+    title: "Ancient History – Colosseum, Vatican & Roman Forum",
+    src: "https://images.unsplash.com/photo-1569759276108-31b8e7e43e7b?q=80&w=687&auto=format&fit=crop",
+    content: (
+      <div>
+        <p className="text-lg md:text-xl text-neutral-700 dark:text-neutral-300">
+          Step back in time with Rome’s ancient landmarks including the Colosseum, Vatican City, Roman Forum, and the Pantheon. Wander through cobblestone streets, enjoy Italian cuisine, and soak in the history and culture of the Eternal City.
+        </p>
+        <img
+          src="https://plus.unsplash.com/premium_photo-1661963989923-17181d237cef?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Q29sb3NzZXVtJTJDJTIwVmF0aWNhbnxlbnwwfHwwfHx8MA%3D%3D"
+          alt="Rome"
+          className="w-full rounded-xl mt-4"
+        />
+      </div>
+    ),
   },
+
   {
     category: "Dubai, UAE",
-    title: "Luxury and Innovation – Burj Khalifa, Desert Safari",
-    src: "https://images.unsplash.com/photo-1692221383412-ab761e52ffe8?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    content: <DummyContent />,
-  },
-  {
-    category: "India",
-    title: "Harbour Views – Opera House, Bondi Beach & Wildlife",
-    src: "https://images.unsplash.com/photo-1524230507669-5ff97982bb5e?q=80&w=664&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    content: <DummyContent />,
+    title: "Luxury & Innovation – Burj Khalifa, Desert Safari & Palm Jumeirah",
+    src: "https://images.unsplash.com/photo-1692221383412-ab761e52ffe8?q=80&w=764&auto=format&fit=crop",
+    content: (
+      <div>
+        <p className="text-lg md:text-xl text-neutral-700 dark:text-neutral-300">
+          Experience the futuristic city of Dubai with the towering Burj Khalifa, thrilling desert safaris, luxurious Palm Jumeirah, and world-class shopping at Dubai Mall. Discover the blend of modern architecture, culture, and unforgettable experiences.
+        </p>
+        <img
+          src="https://plus.unsplash.com/premium_photo-1694475634077-e6e4b623b574?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8QnVyaiUyMEtoYWxpZmF8ZW58MHx8MHx8fDA%3D"
+          alt="Dubai"
+          className="w-full rounded-xl mt-4"
+        />
+      </div>
+    ),
   },
 ];
-
