@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
+import { aj } from "../arcjet/route";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 export const openai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
@@ -41,6 +43,8 @@ Output Schema (STRICT JSON ONLY):
     "duration": "string", 
     "budget": "string",
     "group_size": "string",
+    "origin": "string",
+
     "hotels": [
       {
         "hotel_name": "string",
@@ -74,6 +78,28 @@ Output Schema (STRICT JSON ONLY):
 
 export async function POST(req: NextRequest) {
   const { messages, isFinal } = await req.json();
+  const user=await currentUser(); 
+  const {has}=await auth();
+  const hasPremiumAccess = has({ plan: 'monthly' })
+  console.log("hasPremiumAccess",hasPremiumAccess)
+  const decision = await aj.protect(req, { 
+      userId: user?.primaryEmailAddress?.emailAddress ??'', 
+      requested: isFinal?5:0
+    }); // Deduct 5 tokens from the bucket
+
+    //console.log(decision);
+    //@ts-ignore
+    if (decision?.reason?.remaining==0 && !hasPremiumAccess) {
+      return NextResponse.json({
+        resp:'your free trial is ended.',
+        ui:'limit'
+      })
+    }
+
+
+
+     
+  
 
   try {
     const completion = await openai.chat.completions.create({
@@ -86,12 +112,14 @@ export async function POST(req: NextRequest) {
         },
         ...messages,
       ],
-      max_tokens: isFinal ? 3000 : 500, // Increase tokens for final response
-    });
+max_tokens: isFinal ? 4000 : 2000
+ });
 
     console.log("from api", completion.choices[0].message);
     const message = completion.choices[0].message;
-    
+    const rawContent = message?.content ?? "";
+
+
     // Check if content exists and is valid JSON
     if (!message.content) {
       throw new Error("No content in response");
@@ -99,10 +127,10 @@ export async function POST(req: NextRequest) {
 
     let parsedResponse;
     try {
-      parsedResponse = JSON.parse(message.content);
+      parsedResponse = JSON.parse(rawContent);
     } catch (parseError) {
       console.error("JSON Parse Error:", parseError);
-      console.error("Raw content:", message.content);
+      console.error("Raw content:", rawContent);
       
       // Try to fix truncated JSON with improved logic
       let fixedContent = message.content.trim();
