@@ -10,7 +10,7 @@ import { NextResponse } from "next/server";
       characteristics: ["userId"], // track requests by a custom user ID
       refillRate: 5, // refill 5 tokens per interval
       interval: 86400, // refill every 10 seconds
-      capacity: 30, // bucket maximum capacity of 10 tokens
+      capacity: 50, // bucket maximum capacity of 10 tokens
     }), 
   ],
 });
@@ -18,7 +18,7 @@ import { NextResponse } from "next/server";
 export async function GET(req: Request) {
   const userId = "user123"; // Replace with your authenticated user ID
   const decision = await aj.protect(req, { userId, requested: 5 }); // Deduct 5 tokens from the bucket
-  console.log("Arcjet decision", decision);
+  // console.log("Arcjet decision", decision);
 
   if (decision.isDenied()) {
     return NextResponse.json(

@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
   const user=await currentUser(); 
   const {has}=await auth();
   const hasPremiumAccess = has({ plan: 'monthly' })
-  console.log("hasPremiumAccess",hasPremiumAccess)
+  // console.log("hasPremiumAccess",hasPremiumAccess)
   const decision = await aj.protect(req, { 
       userId: user?.primaryEmailAddress?.emailAddress ??'', 
       requested: isFinal?5:0
@@ -167,7 +167,7 @@ max_tokens: isFinal ? 4000 : 2000
       
       try {
         parsedResponse = JSON.parse(fixedContent);
-        console.log("Fixed JSON successfully!");
+        // console.log("Fixed JSON successfully!");
       } catch (fixError) {
         console.error("Could not fix JSON:", fixError);
         
@@ -200,7 +200,7 @@ max_tokens: isFinal ? 4000 : 2000
                 const partialTripPlan = afterTripPlan.substring(0, endIndex);
                 const finalContent = beforeTripPlan + '"trip_plan": {}' + '}';
                 parsedResponse = JSON.parse(finalContent);
-                console.log("Used fallback empty trip_plan");
+                // console.log("Used fallback empty trip_plan");
               }
             }
           }

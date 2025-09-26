@@ -3,11 +3,10 @@ import { Button } from "@/components/ui/button";
 import { useConvex } from "convex/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useUserDetails } from "../provider";
+import { useUserDetail } from "@/app/provider";
 import { api } from "@/convex/_generated/api";
 import { TripInfo } from "../create-new-trip/_components/ChatBox";
 import { ArrowBigRightIcon } from "lucide-react";
-import Image from "next/image";
 import MyTripCardItem from "./_components/MyTripCardItem";
 
  export type Trip = {
@@ -18,7 +17,7 @@ import MyTripCardItem from "./_components/MyTripCardItem";
 
 function MyTrips() {
   const [MyTrips, setMyTrips] = useState<Trip[]>([]);
-  const { userDetail, setUserDetail } = useUserDetails();
+  const { userDetail, setUserDetail } = useUserDetail();
   const convex = useConvex();
   
   const GetUserTrip = async () => {

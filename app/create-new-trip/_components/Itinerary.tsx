@@ -23,14 +23,14 @@ function Itinerary() {
   // Function to fetch photos from Unsplash API
   const fetchPhotos = async (name: string) => {
     try {
-      const res = await fetch(`/api/unsplash?query=${encodeURIComponent(name)}`);
-      const data = await res.json();
-      if (data?.results) {
-        setPhotos(prev => ({
-          ...prev,
-          [name]: data.results.map((img: any) => img.urls.small),
-        }));
-      }
+     const res = await fetch(`/api/unsplash?query=${encodeURIComponent(name)}`);
+const data = await res.json();
+if (data?.results) {
+  setPhotos(prev => ({
+    ...prev,
+    [name]: data.results.map((img: any) => img.urls.small),
+  }));
+}
     } catch (err) {
       console.error("Error fetching photos:", err);
     }
@@ -73,8 +73,8 @@ function Itinerary() {
           content: (
             <div>
               <p className="mb-2 font-bold text-xl text-primary">
-                Best Time: {dayData.places_to_visit[0]?.best_time_to_visit}
-              </p>
+               Best Time: {dayData.places_to_visit[0]?.best_time_to_visit}
+                         </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
                 {dayData.places_to_visit.map((place, index) => (
                   <PlaceCardItem

@@ -3,7 +3,7 @@ import HeroVideoDialog from "@/components/magicui/hero-video-dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useUser } from "@clerk/nextjs";
-import { Globe2, Plane, Landmark, Send, ArrowDown } from "lucide-react";
+import { Globe2, Plane, Landmark, Send, ArrowDown, Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
 import CLoader from "./CLoader";
 
@@ -23,13 +23,21 @@ export const suggestions = [
   {
     title: "Adventure Destination ",
     icon: <Globe2 className="text-yellow-600 h-5 w-5" />,
-  }, 
+  },
 ];
 
 const HeroSection = () => {
   const { user, isLoaded } = useUser();
-//  if (!isLoaded) return <CLoader />; // Wait for Clerk to load
+  // console.log(user?.id) //ok on 26/9
   const router = useRouter();
+  if (!isLoaded)
+    return (
+      <>
+        <div className="w-full h-full flex items-center justify-end ">
+          <Loader className="animate-spin h-10 w-10 text-primary text-center " />
+        </div>
+      </>
+    ); // Wait for Clerk to load
   const onSent = () => {
     if (!user) {
       router.push("/sign-in");
@@ -38,7 +46,6 @@ const HeroSection = () => {
     //navigate to trip planner  web page
     router.push("/create-new-trip");
   };
-  
   return (
     <div className=" mt-24 w-full flex  justify-center ">
       {/*  content */}
@@ -54,17 +61,20 @@ const HeroSection = () => {
         {/*  input */}
         <div>
           <div className=" border rounded-2xl p-4  relative">
-            <Textarea placeholder=" Create a trip from New York"
+            <Textarea
+              placeholder=" Create a trip from New York"
               className="w-full h-28 bg-transparent border-none focus-visible:ring-0 shadow-none resize-none"
             ></Textarea>
-            <Button size={"icon"}  className=" absolute bottom-6 right-6"  onClick={onSent} >
+            <Button
+              size={"icon"}
+              className=" absolute bottom-6 right-6"
+              onClick={onSent}
+            >
               <Send className="h-4 w-4" />
             </Button>
           </div>
         </div>
         {/*  sugession list*/}
-
-        
 
         {/*  video section */}
         <div className="flex item-center flex-col">
