@@ -1,26 +1,46 @@
-
 'use client';
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Trip } from '../page'
 import { ArrowBigRightIcon } from 'lucide-react'
 import Link from 'next/link'
+import { fetchUnsplashPhotos } from '@/utils/unsplash'
 
-type Props={
-trip:Trip
+type Props = {
+  trip: Trip
 }
 
-function MyTripCardItem({trip}:Props) {
+function MyTripCardItem({ trip }: Props) {
+  const [photo, setPhoto] = useState<string | null>(null);
+
+  useEffect(() => {
+    const getPhoto = async () => {
+      // Use trip destination as query for Unsplash
+      const results = await fetchUnsplashPhotos(`${trip.tripDetail?.destination} travel`, 1);
+      if (results.length > 0) setPhoto(results[0].urls.small);
+    };
+    getPhoto();
+  }, [trip.tripDetail?.destination]);
+
   return (
-        <Link href={'/view-tip' +trip?.tripId} className='p-5 shadow rounded-2xl'>
+    <Link href={'/view-trip' + trip?.tripId} className='p-5 shadow rounded-2xl'>
+      <Image
+        src={photo || '/placeholder.jpg'}
+        alt={trip.tripId}
+        width={400}
+        height={400}
+        className="rounded-xl object-cover"
+      />
 
-            <Image  src ={'/placeholder.jpg'} alt={trip.tripId} width={400} height={400}
-            className=" rounded-xl object-cover"/>
-            <h2 className=" flex gap-2 font-semibold text-xl mt-2">{trip?.tripDetail?.destination} <ArrowBigRightIcon/>{trip?.tripDetail?.destination}</h2>
-            <h2 className='mt-2 text-gray-600'>{trip?.tripDetail?.duration}Trip with {trip.tripDetail?.budget} Budget</h2>
+      <h2 className="flex gap-2 font-semibold text-xl mt-2">
+        {trip?.tripDetail?.from} <ArrowBigRightIcon /> {trip?.tripDetail?.destination}
+      </h2>
 
-</Link>
-           )
+      <h2 className='mt-2 text-gray-600'>
+        {trip?.tripDetail?.duration} Trip with {trip?.tripDetail?.budget} Budget
+      </h2>
+    </Link>
+  )
 }
 
-export default MyTripCardItem
+export default MyTripCardItem;
