@@ -1,6 +1,7 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
+
 export const CreateTripDetail = mutation({
   args: {
   tripId: v.string(),
@@ -29,5 +30,21 @@ export const GetUserTrips=query({
     .order('desc')
     .collect();
     return result;
+  }
+})
+
+export const GetTripById=query({
+  args:{
+    uid :v.id('userTable'),
+    tripId:v.string(),
+  },
+  handler:async(ctx,args)=>{
+    const result=await ctx.db.query('TripDetailTable')
+    .filter(q=> q.and(
+      q.eq(q.field('uid'),args.uid),
+      q.eq(q.field("tripId"),args?.tripId)
+    ))
+    .collect();
+    return result[0];
   }
 })

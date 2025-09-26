@@ -6,11 +6,14 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { usePathname } from "next/navigation";
+import { Map } from "lucide-react";
+
 
 const menuOptions = [
   { name: "Home", path: "/" },
   { name: "Pricing", path: "/pricing" },
   { name: "Contact Us", path: "/contact-us" },
+   { name: "Map", path: "/map" },
 ];
 
 function Header() {
@@ -33,12 +36,13 @@ function Header() {
       {/* Menu options */}
       <div className="flex items-center gap-6">
         {menuOptions.map((menu, index) => (
-          <Link href={menu.path} key={index}>
-            <h2 className="text-lg hover:scale-105 transition hover:text-primary cursor-pointer">
-              {menu.name}
-            </h2>
-          </Link>
-        ))}
+  <Link href={menu.path} key={index}>
+    <h2 className="text-lg hover:scale-105 transition hover:text-primary cursor-pointer flex items-center gap-1">
+      {menu.name === "Map" && <Map size={18} />} {/* ✅ icon for Map only */}
+      {menu.name}
+    </h2>
+  </Link>
+))}
       </div>
 
       {/* Right side buttons */}
