@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Star, Wallet } from "lucide-react";
 
+
 type Props = {
   hotel: Hotel;
   photos?: string[]; // pass fetched Unsplash photos here

@@ -16,7 +16,7 @@ type PhotosState = {
 
 function Itinerary() {
   //@ts-ignore
-  const { tripDetailInfo } = useTripDetails(); 
+  const { tripDetailInfo ,setTripDetailInfo} = useTripDetails(); 
   const [tripData, setTripData] = useState<TripInfo | null>(null);
   const [photos, setPhotos] = useState<PhotosState>({});
 

@@ -1,3 +1,5 @@
+
+import 'leaflet/dist/leaflet.css';
 import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
 import { Outfit } from "next/font/google";
@@ -5,6 +7,7 @@ import "./globals.css";
 import Provider from "./provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ConvexClientProvider } from "./ConvexClientProvider";
+
 
 
 // const geistSans = Geist({
