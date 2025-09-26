@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { SignInButton, useUser } from "@clerk/nextjs";
+import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import CLoader from "./CLoader";
+import { usePathname } from "next/navigation";
 
 const menuOptions = [
   { name: "Home", path: "/" },
@@ -14,9 +14,11 @@ const menuOptions = [
 ];
 
 function Header() {
-  const { isSignedIn, isLoaded } = useUser();
+  const {user } = useUser();
+  const path = usePathname(); // ✅ Hook always called before conditional returns
 
-  if (!isLoaded) return null; // Wait for Clerk to load
+  console.log(path); 
+
 
   return (
     <div className="w-full flex items-center justify-between px-8 py-4 sticky top-0 bg-white/50 backdrop-blur-md z-50">
@@ -39,22 +41,24 @@ function Header() {
         ))}
       </div>
 
-      {/* Dynamic button */}
-      <div>
-        {!isSignedIn ? (
-          // Get Started button opens the Clerk modal without redirecting
-          <SignInButton mode="modal">
+      {/* Right side buttons */}
+      <div className="flex gap-5 items-center">
+        {!user? <SignInButton mode="modal">
             <Button>Get Started</Button>
           </SignInButton>
-        ) : (
-          // Create New Trip button shows only when signed in
+         : path === "/create-new-trip" ? 
+          <Link href="/my-trips">
+            <Button>My Trips</Button>
+          </Link>
+        : 
           <Link href="/create-new-trip">
             <Button>Create New Trip</Button>
           </Link>
-        )}
-      </div>
+        }
+        <UserButton />
+      </div> 
     </div>
-  );
+  )
 }
 
 export default Header;

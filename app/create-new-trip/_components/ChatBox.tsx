@@ -2,44 +2,84 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
-import { Loader, Send } from "lucide-react";
+import { Activity, Hotel, Loader, Send } from "lucide-react";
 import { Assistant } from "next/font/google";
 import { Content } from "openai/resources/containers/files/content.mjs";
-import React, { useEffect, useState } from "react";
+import React, { act, useEffect, useState } from "react";
 import EmptyBoxState from "./emptyBoxState";
 import GroupSizeUi from "./GroupSizeUi";
 import BudgetUi from "./BudgetUi";
 import FinalUi from "./FinalUi";
 import SelectDays from "./SelectDays";
 import { useMutation } from "convex/react";
-import { useUserDetails } from "@/app/provider";
+import { useTripDetails, useUserDetails } from "@/app/provider";
 import { api } from "@/convex/_generated/api"; // 👈 add this
 import { v4 as uuidv4 } from "uuid";
+
 
 type Message = {
   role: string;
   content: string;
   ui?: string;
 };
+ export type Hotel={
+  hotel_name: string;
+  hotel_address: string;
+  price_per_night:string;
+  hotel_image_url:string;
+  geo_coordinates:{
+    latitude:number;
+    longitude:number;
+  };
+  rating:number;
+  description:string;
+}
 
-export type TypeInfo = {
+
+ export type Activity={
+  place_name: string;
+  place_details: string;
+  place_image_url: string;
+  geo_coordinates: {
+    latitude: number;
+    longitude: number;
+  };
+  place_address: string;
+  ticket_pricing: string;
+  time_travel_each_location: string;
+  best_time_to_visit: string;
+};
+
+
+type Itinerary={
+  day: number;
+  day_plan: string;
+  places_to_visit: Activity[];
+  activities: Activity[];
+
+}
+export type TripInfo = {
   budget: string;
-  destination: string;
+  destination: string;   
   duration: string;
   group_size: string;
-  origin: string;
-  hotels: any;
-  itinerary: any;
-};
+  origin: string; 
+  hotels:Hotel[];
+  itinerary: Itinerary[];
+}; 
+
+
 
 function ChatBox() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [userInput, setUserInput] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [isFinal, setIsFinal] = useState(false);
-  const [tripDetail, setTripDetail] = useState<TypeInfo>();
+  const [tripDetail, setTripDetail] = useState<TripInfo>();
   const saveTripDetail = useMutation(api.tripDetail.CreateTripDetail);
   const { userDetails, setUserDetails } = useUserDetails();
+  //@ts-ignore
+   const { tripDetailInfo, setTripDetailInfo } = useTripDetails();
 
   const onSend = async () => {
     if (!userInput?.trim()) return;
@@ -57,12 +97,31 @@ function ChatBox() {
       messages: [...messages, newMsg],
       isFinal: isFinal,
     });
-    console.log("trip data ",result?.data)
-    if (result.data.error) {
-      console.error("API Error:", result.data);
-      // Handle error appropriately
-      return;
-    }
+    // console.log("trip data ",result?.data)
+    // if (result.data.error) {
+    //   console.error("API Error:", result.data);
+    //   // Handle error appropriately
+    //   return;
+    // }
+
+console.log("API raw result:", result.data);
+if (result.data.error) {
+  console.error("API returned error:", result.data.error, result.data.details);
+} else {
+  console.log("Trip Plan:", result.data.trip_plan);
+}
+
+
+// console.log("API raw result:", result.data);
+
+// // Check if error exists
+// if (result.data && result.data.error) {
+//   console.error("API returned error:", result.data.error, result.data.details || "No additional details");
+// } else {
+//   console.log("Trip Plan:", result.data?.trip_plan || "No trip plan data available");
+// }
+
+
     !isFinal &&
       setMessages((prev: Message[]) => [
         ...prev,
@@ -76,6 +135,7 @@ function ChatBox() {
     console.log(result);
     if (isFinal) {
       setTripDetail(result?.data?.trip_plan);
+      setTripDetailInfo(result?.data?.trip_plan);
       const tripId = uuidv4();
       await saveTripDetail({
         tripDetail: result?.data?.trip_plan ?? {}, // always send something
@@ -138,7 +198,7 @@ function ChatBox() {
   }, [isFinal]);
 
   return (
-    <div className="h-[85vh] flex flex-col ">
+    <div className="h-[85vh] flex flex-col border shadow rounded-2xl p-5">
       {messages?.length == 0 && (
         <EmptyBoxState
           onSelectOption={(v: string) => {
