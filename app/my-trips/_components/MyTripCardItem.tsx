@@ -24,22 +24,25 @@ function MyTripCardItem({ trip }: Props) {
 
   return (
     <Link href={'/view-trip' + trip?.tripId} className='p-5 shadow rounded-2xl'>
-      <Image
-        src={photo || '/placeholder.jpg'}
-        alt={trip.tripId}
-        width={400}
-        height={400}
-        className="rounded-xl object-cover"
-      />
+  <div className="w-full h-64 rounded-xl overflow-hidden">
+    <Image
+      src={photo || '/placeholder.jpg'}
+      alt={trip.tripId}
+      width={400}
+      height={400}
+      className="w-full h-full object-cover"
+    />
+  </div>
 
-      <h2 className="flex gap-2 font-semibold text-xl mt-2">
-        {trip?.tripDetail?.from} <ArrowBigRightIcon /> {trip?.tripDetail?.destination}
-      </h2>
+  <h2 className="flex gap-2 font-semibold text-xl mt-2">
+    {trip?.tripDetail?.from} <ArrowBigRightIcon /> {trip?.tripDetail?.destination}
+  </h2>
 
-      <h2 className='mt-2 text-gray-600'>
-        {trip?.tripDetail?.duration} Trip with {trip?.tripDetail?.budget} Budget
-      </h2>
-    </Link>
+  <h2 className='mt-2 text-gray-600'>
+    {trip?.tripDetail?.duration} Trip with {trip?.tripDetail?.budget} Budget
+  </h2>
+</Link>
+
   )
 }
 
