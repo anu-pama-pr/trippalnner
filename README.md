@@ -6,6 +6,10 @@ An intelligent AI-powered trip planning application that helps users create pers
 
 Trip AI Planner is a modern web application that leverages artificial intelligence to create customized travel plans. Users can input their preferences, budget, group size, and destination, and the AI generates detailed itineraries complete with hotel recommendations, attractions, and daily schedules. The application also features an interactive map view and a comprehensive admin panel for managing user inquiries.
 
+
+## Live Demo  
+> <a href="https://travai.vercel.app/"> travai.vercel.app</a>
+
 ## ✨ Key Features
 
 - **AI-Powered Itinerary Generation** - Intelligent trip planning based on user preferences, budget, and travel dates
