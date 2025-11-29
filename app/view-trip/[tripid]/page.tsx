@@ -1,3 +1,4 @@
+'use client';
 
 import Itinerary from '@/app/create-new-trip/_components/Itinerary';
 import { Trip } from '@/app/my-trips/page';
